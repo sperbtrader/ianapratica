@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IA na Prática - Pré-venda</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, #0f0f10 0%, #1a1a24 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1rem 2rem;
+      text-align: center;
+    }
+    .logo svg {
+      width: 200px;
+      height: auto;
+    }
+    .neon-text {
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffff, 0 0 30px #8a2be2;
+      font-size: 2.5rem;
+      margin-top: 1rem;
+    }
+    .neon-divider {
+      width: 200px;
+      height: 3px;
+      margin: 1.5rem auto;
+      background: linear-gradient(90deg, transparent, #00ffff, transparent);
+      box-shadow: 0 0 20px #00ffff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; box-shadow: 0 0 25px #00ffff; }
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4rem;
+      padding: 2rem;
+      text-align: center;
+    }
+    section {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.1);
+      transition: transform 0.3s;
+    }
+    section:hover { transform: translateY(-5px); }
+    h2 {
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 1rem auto;
+      max-width: 700px;
+    }
+    ul li::before {
+      content: '✦';
+      color: #8a2be2;
+      margin-right: 10px;
+      text-shadow: 0 0 10px #8a2be2;
+    }
+    a.button {
+      background: linear-gradient(90deg, #00ffff, #8a2be2);
+      color: #fff;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(0,255,255,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: inline-block;
+      margin-top: 1.5rem;
+    }
+    a.button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(0,255,255,0.8);
+    }
+    iframe {
+      width: 100%;
+      max-width: 720px;
+      height: 405px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.4);
+      border: none;
+    }
+    footer {
+      margin: 4rem 0 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      text-align: center;
+    }
+    /* Animated Logo */
+    .logo { transition: transform .3s ease; }
+    .logo:hover { transform: scale(1.03); }
+    .logo text.outline {
+      fill: transparent;
+      stroke-width: 2.5;
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: draw 2.8s ease forwards;
+      filter: url(#neonFilter);
+    }
+    .logo text.fill {
+      opacity: 0;
+      animation: glowFill 1.6s ease forwards;
+      animation-delay: 2.2s;
+      filter: url(#neonFilterSoft);
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes glowFill { to { opacity: 1; } }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; fill: #8a2be2; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="@sperb.ia">
+        <defs>
+          <linearGradient id="gradStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8a2be2">
+              <animate attributeName="offset" values="0;1;0" dur="6s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stop-color="#00ffff">
+              <animate attributeName="offset" values="1;0;1" dur="6s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
+          <linearGradient id="gradFill" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8a2be2"/>
+            <stop offset="100%" stop-color="#00ffff"/>
+          </linearGradient>
+          <filter id="neonFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="neonFilterSoft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Outline animated -->
+        <text x="20" y="120" class="outline" font-family="Poppins, sans-serif" font-weight="700" font-size="96" stroke="url(#gradStroke)">@sperb.ia</text>
+        <!-- Glow fill appears after stroke animation -->
+        <text x="20" y="120" class="fill" font-family="Poppins, sans-serif" font-weight="700" font-size="96" fill="url(#gradFill)">@sperb.ia</text>
+      </svg>
+    </div>
+    <h1 class="neon-text">Curso IA na Prática</h1>
+    <div class="neon-divider"></div>
+    <p>Aprenda a criar imagens, vídeos e animações profissionais com Inteligência Artificial e transforme conhecimento em lucro. Garanta sua vaga na pré-venda com desconto especial.</p>
+  </header>
+
+  <main>
+    <iframe src="https://www.youtube.com/embed/p0ptrpz7Jlw" title="Vídeo de Apresentação" allowfullscreen></iframe>
+    <a class="button" href="https://mpago.la/2WbXKEP" target="_blank">Quero garantir minha vaga</a>
+
+    <section>
+      <h2>O que você vai aprender</h2>
+      <ul>
+        <li>Fundamentos e mentalidade para lucrar com IA.</li>
+        <li>Criação de imagens profissionais com Gemini e Midjourney.</li>
+        <li>Transformação de imagens em vídeos animados com Grok.</li>
+        <li>Uso do Sora2 para gerar vídeos realistas.</li>
+        <li>Prompt Engineering e raciocínio estratégico.</li>
+        <li>Fluxo integrado de ferramentas de IA.</li>
+        <li>Monetização e venda de serviços com IA.</li>
+        <li>Criação e hospedagem de páginas de vendas completas usando repositório no GitHub.</li>
+        <li>Deploy com domínio personalizado gratuito no Vercel para sites profissionais.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Oferta Especial de Pré-venda</h2>
+      <p>Adquira agora por <strong>R$147</strong> e receba acesso antecipado, bônus exclusivos e entrada para o grupo VIP de espera no WhatsApp.</p>
+      <ul>
+        <li><strong>Bônus 1:</strong> Pack de Prompts Profissionais.</li>
+        <li><strong>Bônus 2:</strong> Mentoria em grupo ao vivo.</li>
+        <li><strong>Bônus 3:</strong> Guia de ferramentas gratuitas.</li>
+      </ul>
+      <a class="button" href="https://mpago.la/2WbXKEP" target="_blank">Garantir minha vaga agora</a>
+    </section>
+
+    <section>
+      <h2>Perguntas Frequentes (FAQ)</h2>
+      <h3>O curso é ao vivo ou gravado?</h3>
+      <p>As aulas principais são gravadas e você pode assistir quando quiser. Também haverá encontros ao vivo para dúvidas.</p>
+
+      <h3>Preciso saber usar IA antes?</h3>
+      <p>Não. O curso foi criado para iniciantes e ensina desde a criação de conta até projetos prontos.</p>
+
+      <h3>Recebo certificado?</h3>
+      <p>Sim, ao concluir todas as aulas você recebe um certificado digital de participação.</p>
+
+      <h3>Quanto tempo terei acesso?</h3>
+      <p>Acesso vitalício, incluindo futuras atualizações do curso.</p>
+    </section>
+
+    <section>
+      <h2>Garantia e Segurança</h2>
+      <p>Pagamento 100% seguro via Mercado Pago. Caso mude de ideia, você tem 7 dias de garantia para solicitar reembolso total.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Sperb.ia | Todos os direitos reservados | Siga no Instagram <strong>@sperb.ia</strong></p>
+  </footer>
+</body>
+</html>
